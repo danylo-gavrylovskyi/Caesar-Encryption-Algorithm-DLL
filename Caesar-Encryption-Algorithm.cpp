@@ -10,4 +10,13 @@ extern "C" {
             }
         }
     }
+
+    __declspec(dllexport) void decrypt(char* encryptedText, int key) {
+        for (int i = 0; encryptedText[i] != '\0'; i++) {
+            if (isalpha(encryptedText[i])) {
+                char base = isupper(encryptedText[i]) ? 'A' : 'a';
+                encryptedText[i] = (char)(((encryptedText[i] - base - key + 26) % 26) + base);
+            }
+        }
+    }
 }
